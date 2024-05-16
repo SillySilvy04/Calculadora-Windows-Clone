@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
@@ -8,6 +11,7 @@
     height: 100vh;
     display: flex;
     background-color: #1f2023;
+    font-family: "Open Sans", sans-serif;
 }
 
 .calculadora{
@@ -34,6 +38,12 @@
     color: white;
 }
 
+.number{
+    font-size: 400%;
+    height: 100%;
+    font-weight: 500;
+}
+
 .memoria{
     display: flex;
     width: 50%;
@@ -45,11 +55,14 @@
 .memoria_componente{
     font-size: 100%;
     color: white;
+    font-weight: 400;
+    border: none;
+    background-color: #1f2023;
+    padding: 100%;
 }
 
-.number{
-    font-size: 400%;
-    height: 100%;
+.memoria_componente:hover{
+    background-color: #323135;
 }
 
 .grid{

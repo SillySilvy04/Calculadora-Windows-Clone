@@ -47,9 +47,6 @@
 .memoria{
     display: flex;
     width: 50%;
-    gap: 10%;
-    margin-left: 5%;
-    margin: 1.5% 0;
 }
 
 .memoria_componente{
@@ -58,7 +55,8 @@
     font-weight: 400;
     border: none;
     background-color: #1f2023;
-    padding: 100%;
+    width: 15%;
+    height: 8vh;
 }
 
 .memoria_componente:hover{
@@ -79,6 +77,11 @@
     border-radius: 8px;
     box-shadow: none;
     border: none;
+    font-size: 120%;
+}
+
+.operacao_grande{
+    font-size: 200%;
 }
 
 .btao_operacao, .btao_operando{

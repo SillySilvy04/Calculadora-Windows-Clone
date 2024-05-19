@@ -25,7 +25,6 @@
     font-size: 150%;
     margin-top: 2%;
     color: white;
-    margin-left: 1%;
 }
 
 .display{
@@ -126,26 +125,7 @@
 }
 
 .historico{
-    background-color: #1f2023;
-    width: 22%;
+    background-color: red;
+    width: 25%;
     height: 100vh;
-    padding: 0 1%;
-}
-
-.historico_memoria_select{
-    display: flex;
-    margin: 8% 0;
-    gap: 8%;
-}
-
-.historico_memoria{
-    color: white;
-}
-
-.selecionado_HM{
-    border-bottom: 3px solid #db60e3;
-}
-
-.painel_historico_memoria{
-    color: white;
 }

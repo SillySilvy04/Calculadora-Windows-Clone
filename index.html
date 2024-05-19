@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="calculadora icon.png">
+    <script src="script.js"></script>
     <title>Calculadora</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
                 &#8801; Padrão
             </section>
             <section class="display">
-                <h1 class="number">0</h1>
+                <h1 class="number" id="number_display">0</h1>
             </section>
             <section class="memoria">
                 <button class="memoria_componente">MC</button>
@@ -27,23 +28,23 @@
                 <button class="btao_operacao">%</button>
                 <button class="btao_operacao">CE</button>
                 <button class="btao_operacao">C</button>
-                <button class="btao_operacao">&#9003;</button>
+                <button class="btao_operacao" onclick="removerUltimo()">&#9003;</button>
                 <button class="btao_operacao">&#8543;&#8339;</button>
                 <button class="btao_operacao">x²</button>
                 <button class="btao_operacao">&#8730;x</button>
-                <button class="btao_operacao operacao_grande">&#xF7;</button>
-                <button class="btao_operando">7</button>
-                <button class="btao_operando">8</button>
-                <button class="btao_operando">9</button>
-                <button class="btao_operacao operacao_grande">&#215;</button>
-                <button class="btao_operando">4</button>
-                <button class="btao_operando">5</button>
-                <button class="btao_operando">6</button>
-                <button class="btao_operacao operacao_grande">-</button>
-                <button class="btao_operando">1</button>
-                <button class="btao_operando">2</button>
-                <button class="btao_operando">3</button>
-                <button class="btao_operacao operacao_grande">+</button>
+                <button class="btao_operacao operacao_grande" onclick="alterarValor('&#xF7;')">&#xF7;</button>
+                <button class="btao_operando" onclick="alterarValor('7')">7</button>
+                <button class="btao_operando" onclick="alterarValor('8')">8</button>
+                <button class="btao_operando" onclick="alterarValor('9')">9</button>
+                <button class="btao_operacao operacao_grande" onclick="alterarValor('&#215;')">&#215;</button>
+                <button class="btao_operando" onclick="alterarValor('4')">4</button>
+                <button class="btao_operando" onclick="alterarValor('5')">5</button>
+                <button class="btao_operando" onclick="alterarValor('6')">6</button>
+                <button class="btao_operacao operacao_grande" onclick="alterarValor('-')">-</button>
+                <button class="btao_operando" onclick="alterarValor('1')">1</button>
+                <button class="btao_operando" onclick="alterarValor('2')">2</button>
+                <button class="btao_operando" onclick="alterarValor('3')">3</button>
+                <button class="btao_operacao operacao_grande" onclick="alterarValor('+')">+</button>
                 <button class="btao_operando">+/-</button>
                 <button class="btao_operando">0</button>
                 <button class="btao_operando">,</button>

@@ -28,6 +28,11 @@
     margin-left: 1%;
 }
 
+.aux_bar{
+    color: #808080;
+    height: 5%;
+}
+
 .display{
     display: flex;
     flex-direction: row-reverse;
@@ -35,7 +40,7 @@
     width: 65%;
     align-self: flex-end;
     align-items: center;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     color: white;
 }
 

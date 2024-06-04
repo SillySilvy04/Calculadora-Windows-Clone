@@ -49,24 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 valorResultado = primeirOperando - segundoOperando;
                 break;
 
-            case "U+00D7":
+            case "×":
                 valorResultado = primeirOperando * segundoOperando;
                 break;
 
-            case "U+00F7":
+            case "÷":
                 valorResultado = primeirOperando / segundoOperando;
                 break;
 
             case "x²": 
-                valorResultado = segundoOperando.toString()**2;
+                valorResultado = primeirOperando**2;
                 break;
 
-            case "U+216F"+"U+2083":
-                valorResultado = 1 / segundoOperando;
+            case "⅟ₓ":
+                valorResultado = 1 / primeirOperando;
                 break;
 
-            case "U+221A"+"x":
-                valorResultado = Math.sqrt(segundoOperando);
+            case "√x":
+                valorResultado = Math.sqrt(primeirOperando);
                 break;
             
             default:
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const textoBtao = btao.innerText;
             if(/^[0-9]+$/.test(textoBtao)){
                 adicionarDigito(textoBtao);
-            } else if(["+","-","U+00D7","U+00F7","x²","U+216F"+"U+2083","U+221A"+"x"].includes(textoBtao)){
+            } else if(["+","-","×", "÷","x²","⅟ₓ","√x"].includes(textoBtao)){
                 definirOperador(textoBtao);
             } else if(textoBtao === "="){
                 calcular();

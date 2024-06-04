@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let operador = null;
     let primeirOperando = null;
     let resetar = false;
+    let ehResultado = false;
 
     function atualizarResultado(limpar = false){
         resultado.innerText = limpar ? 0 : numeroAtual.replace(".",",");
@@ -97,6 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarResultado(true);
     }
 
+    function limparDisplay(){
+        if(!ehResultado){
+            numeroAtual = "";
+            atualizarResultado(true);
+        }else{
+            limparCalculadora()
+        }
+    }
+
     function definirPorcentagem(){
         let resultado = parseFloat(numeroAtual)/100;
 
@@ -118,11 +128,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if(/^[0-9]+$/.test(textoBtao)){
                 adicionarDigito(textoBtao);
             } else if(["+","-","×", "÷","x²","⅟ₓ","√x"].includes(textoBtao)){
+                ehResultado = false;
                 definirOperador(textoBtao);
             } else if(textoBtao === "="){
+                ehResultado = true;
                 calcular();
             } else if(textoBtao === "C"){
                 limparCalculadora();
+            }else if(textoBtao === "CE"){
+                limparDisplay();
             } else if(textoBtao === "+/-"){
                 numeroAtual = (
                     parseFloat(numeroAtual || primeirOperando) * -1

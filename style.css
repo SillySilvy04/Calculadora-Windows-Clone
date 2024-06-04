@@ -147,12 +147,21 @@
 
 .memoria_historico{
     color: white;
+    cursor: default;
+}
+
+.memoria_historico:hover{
+    color: #dddddd;
 }
 
 .selecionado-MH{
     border-bottom: 3px solid #db60e3;
 }
 
-.historico_memoria_painel{
+.memoria_painel, .historico_painel{
     color: white;
+}
+
+.hidden{
+    display: none;
 }

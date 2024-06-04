@@ -9,6 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let resetar = false;
     let ehResultado = false;
 
+    let historico_btao = document.getElementById("historico");
+    let memoria_btao = document.getElementById("memoria");
+    let historico_painel = document.getElementById("historico_painel");
+    let memoria_painel = document.getElementById("memoria_painel");
+
+    historico_btao.addEventListener("click", () => {
+        if(memoria_btao.classList.contains("selecionado-MH")){
+            memoria_btao.classList.remove("selecionado-MH");
+            historico_btao.classList.add("selecionado-MH");
+            historico_painel.classList.remove("hidden");
+            memoria_painel.classList.add("hidden")
+        }
+    });
+
+    memoria_btao.addEventListener("click", () => {
+        if(historico_btao.classList.contains("selecionado-MH")){
+            historico_btao.classList.remove("selecionado-MH");
+            memoria_btao.classList.add("selecionado-MH");
+            memoria_painel.classList.remove("hidden");
+            historico_painel.classList.add("hidden");
+        }
+    });
+
     function atualizarResultado(limpar = false){
         resultado.innerText = limpar ? 0 : numeroAtual.replace(".",",");
     }

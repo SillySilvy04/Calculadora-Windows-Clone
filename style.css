@@ -31,6 +31,8 @@
 .aux_bar{
     color: #808080;
     height: 5%;
+    text-align: end;
+    margin: 0 1%;
 }
 
 .display{

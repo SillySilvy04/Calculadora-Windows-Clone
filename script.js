@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btoes = document.querySelectorAll(".grid button");
     const resultado = document.getElementById("number_display");
+    const aux_bar = document.getElementById("aux_bar");
 
     let numeroAtual = "";
     let operador = null;
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if(numeroAtual){
             calcular();
 
+            aux_bar.innerText = numeroAtual+" "+novoOperador;
             primeirOperando = parseFloat(numeroAtual.replace(",","."));
             numeroAtual = ""
         }
@@ -79,6 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
             numeroAtual = valorResultado.toString();
         }
 
+        aux_bar.innerText = aux_bar.innerText+" "+segundoOperando+" ="
+
         operador = null;
         primeirOperando = null;
         resetar = true;
@@ -89,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         numeroAtual = "";
         primeirOperando = "";
         operador = null;
+        aux_bar.innerText = "";
         atualizarResultado(true);
     }
 

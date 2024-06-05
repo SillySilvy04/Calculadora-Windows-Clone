@@ -78,7 +78,7 @@
     height: 100%;
 }
 
-.btao_igual, .btao_operacao, .btao_operando{
+.btao_igual, .btao_deletar_historico, .btao_operacao, .btao_operando{
     color: white;
     margin: 0;
     margin: 0.5%;
@@ -137,6 +137,31 @@
     width: 25%;
     height: 100vh;
     padding: 0 1%;
+}
+
+.resultados{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.div_historico{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 5%;
+}
+
+.btao_deletar_historico{
+    background-color: #1f2023;
+    font-size: 100%;
+    border-radius: 5px;
+    padding: 2%;
+}
+
+.btao_deletar_historico:hover{
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    background-color: #555555;
 }
 
 .memoria_historico_select{

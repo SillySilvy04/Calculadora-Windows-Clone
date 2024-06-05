@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let historico_painel = document.getElementById("historico_painel");
     let memoria_painel = document.getElementById("memoria_painel");
 
+    let texto_padrao_historico = document.getElementById("texto_padrao_historico");
+    let div_resultado = document.getElementById("resultados");
+
     historico_btao.addEventListener("click", () => {
         if(memoria_btao.classList.contains("selecionado-MH")){
             memoria_btao.classList.remove("selecionado-MH");
@@ -30,6 +33,35 @@ document.addEventListener("DOMContentLoaded", () => {
             memoria_painel.classList.remove("hidden");
             historico_painel.classList.add("hidden");
         }
+    });
+
+    const evento_igual = new Event("eventoIgual");
+
+    document.addEventListener("eventoIgual", () => {
+
+        texto_padrao_historico.classList.add("hidden");
+
+        const historicoDiv = document.createElement("div");
+        historicoDiv.className = "div_historico";
+        
+        const registro = document.createElement("p");
+        registro.className = "texto_historico"
+        registro.textContent = aux_bar.innerText+" "+resultado.innerText;
+
+        const btao_deletar = document.createElement("button");
+        btao_deletar.className = "btao_deletar_historico"
+        btao_deletar.textContent = "deletar";
+        btao_deletar.addEventListener("click", () => {
+            div_resultado.removeChild(historicoDiv);
+            if(div_resultado.children.length === 0){
+                texto_padrao_historico.classList.remove("hidden");
+            }
+        });
+
+        historicoDiv.appendChild(registro);
+        historicoDiv.appendChild(btao_deletar);
+        div_resultado.appendChild(historicoDiv);
+
     });
 
     function atualizarResultado(limpar = false){
@@ -62,9 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function calcular(){
-        if(operador === null || primeirOperando === null) return;
-        let segundoOperando = parseFloat(numeroAtual.replace(",","."));
+        let segundoOperando;
         let valorResultado;
+        if(operador === null || primeirOperando === null) return;
+        if(numeroAtual){
+            segundoOperando = parseFloat(numeroAtual.replace(",","."));
+        }else{
+            segundoOperando = primeirOperando;
+        }
+        
 
         switch(operador){
             case "+":
@@ -111,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         primeirOperando = null;
         resetar = true;
         atualizarResultado();
+        document.dispatchEvent(evento_igual);
     }
 
     function limparCalculadora(){

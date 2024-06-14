@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let memoria_btao = document.getElementById("memoria");
     let historico_painel = document.getElementById("historico_painel");
     let memoria_painel = document.getElementById("memoria_painel");
+    let lixeira_historico = document.getElementById("resetar_historico");
 
     let texto_padrao_historico = document.getElementById("texto_padrao_historico");
     let div_resultado = document.getElementById("resultados");
@@ -37,9 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const evento_igual = new Event("eventoIgual");
 
+    lixeira_historico.addEventListener("click", () => {
+        div_resultado.innerHTML = "";
+        texto_padrao_historico.classList.remove("hidden");
+        lixeira_historico.classList.add("hidden");
+    });
+
     document.addEventListener("eventoIgual", () => {
 
         texto_padrao_historico.classList.add("hidden");
+        lixeira_historico.classList.remove("hidden");
 
         const historicoDiv = document.createElement("div");
         historicoDiv.className = "div_historico";
@@ -50,11 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const btao_deletar = document.createElement("button");
         btao_deletar.className = "btao_deletar_historico"
-        btao_deletar.textContent = "deletar";
+        btao_deletar.textContent = "Excluir";
         btao_deletar.addEventListener("click", () => {
             div_resultado.removeChild(historicoDiv);
             if(div_resultado.children.length === 0){
                 texto_padrao_historico.classList.remove("hidden");
+                lixeira_historico.classList.add("hidden");
             }
         });
 
@@ -85,7 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if(numeroAtual){
             calcular();
 
-            aux_bar.innerText = numeroAtual+" "+novoOperador;
+            if(novoOperador === "-" || novoOperador === "+" || novoOperador === "×" || novoOperador === "÷"){
+                aux_bar.innerText = numeroAtual+" "+novoOperador;
+            } else if(novoOperador === "x²"){
+                aux_bar.innerText = "sqr("+numeroAtual+")";
+            } else if(novoOperador === "⅟ₓ"){
+                aux_bar.innerText = "1/("+numeroAtual+")";
+            } else if(novoOperador === "√x"){
+                aux_bar.innerText = "sqrt("+numeroAtual+")";
+            }
             primeirOperando = parseFloat(numeroAtual.replace(",","."));
             numeroAtual = ""
         }
@@ -96,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function calcular(){
         let segundoOperando;
         let valorResultado;
+        let disparoEvento = false;
         if(operador === null || primeirOperando === null) return;
         if(numeroAtual){
             segundoOperando = parseFloat(numeroAtual.replace(",","."));
@@ -143,13 +161,18 @@ document.addEventListener("DOMContentLoaded", () => {
             numeroAtual = valorResultado.toString();
         }
 
-        aux_bar.innerText = aux_bar.innerText+" "+segundoOperando+" ="
+        if(!["x²", "⅟ₓ", "√x"].includes(operador)){
+            aux_bar.innerText = aux_bar.innerText+" "+segundoOperando+" ="
+            disparoEvento = true;
+        }
 
         operador = null;
         primeirOperando = null;
         resetar = true;
         atualizarResultado();
-        document.dispatchEvent(evento_igual);
+        if(disparoEvento){
+            document.dispatchEvent(evento_igual);
+        }
     }
 
     function limparCalculadora(){
@@ -189,9 +212,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const textoBtao = btao.innerText;
             if(/^[0-9]+$/.test(textoBtao)){
                 adicionarDigito(textoBtao);
-            } else if(["+","-","×", "÷","x²","⅟ₓ","√x"].includes(textoBtao)){
+            } else if(["+","-","×", "÷"].includes(textoBtao)){
                 ehResultado = false;
                 definirOperador(textoBtao);
+            }else if(["x²", "⅟ₓ", "√x"].includes(textoBtao)){
+                ehResultado = false;
+                definirOperador(textoBtao);
+                calcular();
             } else if(textoBtao === "="){
                 ehResultado = true;
                 calcular();

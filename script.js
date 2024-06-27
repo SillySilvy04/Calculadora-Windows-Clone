@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let historico_painel = document.getElementById("historico_painel");
     let memoria_painel = document.getElementById("memoria_painel");
     let lixeira_historico = document.getElementById("resetar_historico");
-
+    let btoes_desativaveis = document.querySelectorAll(".desativavel");
+    
     let texto_padrao_historico = document.getElementById("texto_padrao_historico");
     let div_resultado = document.getElementById("resultados");
 
@@ -73,6 +74,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+    function disableButtons() {
+        btoes_desativaveis.forEach((button) => {
+            button.disabled = true;
+        });
+    }
+
+    function enableButtons() {
+        btoes_desativaveis.forEach((button) => {
+            button.disabled = false;
+        });
+    }
+
     function atualizarResultado(limpar = false){
         resultado.innerText = limpar ? 0 : numeroAtual.replace(".",",");
     }
@@ -110,10 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
         operador = novoOperador;
     }
 
-    function calcular(){
+    async function calcular(){
         let segundoOperando;
         let valorResultado;
         let disparoEvento = false;
+        let atualizarResultado1 = false;
         if(operador === null || primeirOperando === null) return;
         if(numeroAtual){
             segundoOperando = parseFloat(numeroAtual.replace(",","."));
@@ -155,10 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;    
         }
 
-        if(valorResultado.toString().split(".")[1]?.length > 5){
-            numeroAtual = parseFloat(valorResultado.toFixed(5)).toString();
-        } else {
-            numeroAtual = valorResultado.toString();
+        if(testarErro(primeirOperando,segundoOperando,operador)){
+            if(valorResultado.toString().split(".")[1]?.length > 5){
+                numeroAtual = parseFloat(valorResultado.toFixed(5)).toString();
+            } else {
+                numeroAtual = valorResultado.toString();
+            }
         }
 
         if(!["x²", "⅟ₓ", "√x"].includes(operador)){
@@ -166,11 +182,16 @@ document.addEventListener("DOMContentLoaded", () => {
             disparoEvento = true;
         }
 
+        atualizarResultado1 = testarErro(primeirOperando,segundoOperando,operador);
+        console.log(atualizarResultado)
+
         operador = null;
         primeirOperando = null;
         resetar = true;
-        atualizarResultado();
-        if(disparoEvento){
+        if(atualizarResultado1){
+            atualizarResultado();
+        }
+        if(disparoEvento && atualizarResultado1){
             document.dispatchEvent(evento_igual);
         }
     }
@@ -180,7 +201,31 @@ document.addEventListener("DOMContentLoaded", () => {
         primeirOperando = "";
         operador = null;
         aux_bar.innerText = "";
+        enableButtons();
         atualizarResultado(true);
+    }
+
+    function testarErro(primeirOperando,segundoOperando,operador){
+        if(segundoOperando === 0 && operador === "÷"){
+            console.log("1")
+            resultado.innerText = "Não é possível dividir por zero";
+            aux_bar.innerText = "";
+            console.log("1")
+            console.log("1")
+            disableButtons();
+            return false;
+        }else if(primeirOperando < 0 && operador === "√x"){
+            resultado.innerText = "Entrada inválida";
+            aux_bar.innerText = "";
+            disableButtons();
+            return false;
+        }else if(primeirOperando === 0 && operador === "⅟ₓ"){
+            resultado.innerText = "Não é possível dividir por zero";
+            aux_bar.innerText = "";
+            disableButtons();
+            return false;
+        }
+        return true;
     }
 
     function limparDisplay(){
@@ -212,6 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const textoBtao = btao.innerText;
             if(/^[0-9]+$/.test(textoBtao)){
                 adicionarDigito(textoBtao);
+                enableButtons();
             } else if(["+","-","×", "÷"].includes(textoBtao)){
                 ehResultado = false;
                 definirOperador(textoBtao);

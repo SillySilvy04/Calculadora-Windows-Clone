@@ -223,19 +223,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function testarErro(primeirOperando,segundoOperando,operador){
         if(segundoOperando === 0 && operador === "÷"){
-            console.log("1")
             resultado.innerText = "Não é possível dividir por zero";
             aux_bar.innerText = "";
-            console.log("1")
-            console.log("1")
             disableButtons();
             return false;
-        }else if(primeirOperando < 0 && operador === "√x"){
+        }else if((primeirOperando < 0 && operador === "√x") || (!numeroAtual && operador === "√x")){
             resultado.innerText = "Entrada inválida";
             aux_bar.innerText = "";
             disableButtons();
             return false;
-        }else if(primeirOperando === 0 && operador === "⅟ₓ"){
+        }else if((primeirOperando === 0 && operador === "⅟ₓ") || (!numeroAtual && operador === "⅟ₓ")){
             resultado.innerText = "Não é possível dividir por zero";
             aux_bar.innerText = "";
             disableButtons();

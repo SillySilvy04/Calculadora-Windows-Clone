@@ -71,6 +71,17 @@
     background-color: #323135;
 }
 
+.memoria_componente:active{
+    background-color: #3c3a3b;
+}
+
+.memoria_componente:disabled:hover,
+.memoria_componente:disabled:active,
+.memoria_componente:disabled{
+    color: #808080;
+    background-color: #1f2023;
+}
+
 .grid{
     display: grid;
     grid-template-columns: repeat(4,25%);
@@ -78,7 +89,12 @@
     height: 100%;
 }
 
-.btao_igual, .btao_deletar_historico, .btao_operacao, .btao_operando, .lixeira_button{
+.btao_igual,
+.btao_deletar_historico,
+.btao_operacao,
+.btao_operando,
+.btao_memoria,
+.lixeira_button{
     color: white;
     margin: 0;
     margin: 0.5%;
@@ -108,8 +124,11 @@
     background-color: #323135;
 }
 
+.btao_operacao:disabled:hover,
+.btao_operacao:disabled:active,
 .btao_operacao:disabled{
     color: #808080;
+    background-color: #323135;
 }
 
 .btao_operando{
@@ -147,26 +166,37 @@
     padding: 0 1%;
 }
 
+.memorias,
 .resultados{
     display: flex;
     flex-direction: column-reverse;
 }
 
-.div_historico{
+.div_historico,
+.div_memoria{
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
     margin: 5%;
 }
 
-.btao_deletar_historico{
+.div_botoes_memoria{
+    display: flex;
+    gap: 10%;
+}
+
+.btao_deletar_historico,
+.btao_memoria{
     background-color: #1f2023;
+    color: white;
     font-size: 100%;
     border-radius: 5px;
     padding: 2%;
 }
 
-.btao_deletar_historico:hover, .lixeira_button:hover{
+.btao_deletar_historico:hover,
+.lixeira_button:hover,
+.btao_memoria:hover{
     border: 1px solid #ffffff;
     cursor: pointer;
     background-color: #555555;
@@ -191,7 +221,8 @@
     border-bottom: 3px solid #db60e3;
 }
 
-.memoria_painel, .historico_painel{
+.memoria_painel,
+.historico_painel{
     color: white;
     width: 100%;
     position: relative;

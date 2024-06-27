@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btoes = document.querySelectorAll(".grid button");
+    const btoes_memoria = document.querySelectorAll(".memoria button");
     const resultado = document.getElementById("number_display");
     const aux_bar = document.getElementById("aux_bar");
 
@@ -14,10 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let historico_painel = document.getElementById("historico_painel");
     let memoria_painel = document.getElementById("memoria_painel");
     let lixeira_historico = document.getElementById("resetar_historico");
+    let lixeira_memoria = document.getElementById("resetar_memoria");
     let btoes_desativaveis = document.querySelectorAll(".desativavel");
     
     let texto_padrao_historico = document.getElementById("texto_padrao_historico");
+    texto_padrao_memoria = document.getElementById("texto_padrao_memoria");
     let div_resultado = document.getElementById("resultados");
+    let div_memoria = document.getElementById("memorias");
 
     historico_btao.addEventListener("click", () => {
         if(memoria_btao.classList.contains("selecionado-MH")){
@@ -82,7 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function enableButtons() {
         btoes_desativaveis.forEach((button) => {
-            button.disabled = false;
+            if(div_memoria.children.length === 0 && (button.innerText === "MC" || button.innerText === "MR")){
+                button.disabled = true;
+            }else{
+                button.disabled = false;
+            }
+            
         });
     }
 
@@ -252,6 +261,124 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarResultado();
     }
 
+    function memorySave(){
+        texto_padrao_memoria.classList.add("hidden");
+        lixeira_memoria.classList.remove("hidden");
+
+        const memoriaDiv = document.createElement("div");
+        memoriaDiv.className = "div_memoria";
+
+        const registro = document.createElement("p");
+        registro.className = "texto_memoria";
+        registro.textContent = resultado.innerText;
+
+        const btao_deletar = document.createElement("button");
+        btao_deletar.className = "btao_memoria";
+        btao_deletar.textContent = "MC";
+        btao_deletar.addEventListener("click", () => {
+            div_memoria.removeChild(memoriaDiv);
+            if(div_memoria.children.length === 0){
+                texto_padrao_memoria.classList.remove("hidden");
+                lixeira_memoria.classList.add("hidden");
+            }
+        });
+
+        const btao_soma = document.createElement("button");
+        btao_soma.className = "btao_memoria";
+        btao_soma.textContent = "M+";
+        btao_soma.addEventListener("click", () => {
+            somarMemoria(memoriaDiv);
+        });
+
+        const btao_subtracao = document.createElement("button");
+        btao_subtracao.className = "btao_memoria";
+        btao_subtracao.textContent = "M-";
+        btao_subtracao.addEventListener("click", () => {
+            subtrairMemoria(memoriaDiv);
+        });
+
+        const div_botoes = document.createElement("div");
+        div_botoes.className = "div_botoes_memoria";
+
+        memoriaDiv.appendChild(registro);
+        div_botoes.appendChild(btao_deletar);
+        div_botoes.appendChild(btao_soma);
+        div_botoes.appendChild(btao_subtracao);
+        memoriaDiv.appendChild(div_botoes);
+        div_memoria.appendChild(memoriaDiv);
+        numeroAtual = "";
+        primeirOperando = "";
+        operador = null;
+        aux_bar.innerText = "";
+    }
+
+    function memoryClear(){
+        div_memoria.innerHTML = "";
+        texto_padrao_memoria.classList.remove("hidden");
+        lixeira_memoria.classList.add("hidden");
+    }
+
+    function memoryRecall(){
+        const divs = div_memoria.querySelectorAll(".div_memoria");
+        const ultimaDiv = divs[divs.length - 1];
+        console.log(ultimaDiv);
+        const texto = ultimaDiv.querySelector("p");
+        console.log(texto);
+
+        numeroAtual = texto.innerText;
+        atualizarResultado(); 
+    }
+
+    function somarMemoria(elemento = false){
+        var divs, ultimaDiv, texto, valor, resultado1;
+        if(!elemento){
+            divs = div_memoria.querySelectorAll(".div_memoria");
+            ultimaDiv = divs[divs.length - 1];
+        }else{
+            ultimaDiv = elemento
+        }
+        texto = ultimaDiv.querySelector("p");
+        valor = parseFloat(texto.innerText.replace(",","."));
+        console.log(resultado.innerText)
+        if(resultado.innerText){
+            resultado1 = parseFloat(resultado.innerText.replace(",","."));
+        }else{
+            resultado1 = 0;
+        }
+        resultado1 = resultado1 + valor;
+        texto.innerText = resultado1.toString().replace(".",",");
+
+        numeroAtual = "";
+        primeirOperando = "";
+        operador = null;
+        aux_bar.innerText = "";
+    }
+
+    function subtrairMemoria(elemento = false){
+        var divs, ultimaDiv, texto, valor, resultado1;
+        if(!elemento){
+            divs = div_memoria.querySelectorAll(".div_memoria");
+            ultimaDiv = divs[divs.length - 1];
+        }else{
+            ultimaDiv = elemento
+        }
+        texto = ultimaDiv.querySelector("p");
+        valor = parseFloat(texto.innerText.replace(",","."));
+        console.log(resultado.innerText)
+        if(resultado.innerText){
+            resultado1 = parseFloat(resultado.innerText.replace(",","."));
+        }else{
+            resultado1 = 0;
+        }
+        resultado1 = valor - resultado1;
+        texto.innerText = resultado1.toString().replace(".",",");
+
+        numeroAtual = "";
+        primeirOperando = "";
+        operador = null;
+        aux_bar.innerText = "";
+    }
+
     btoes.forEach((btao) => {
         btao.addEventListener("click", () => {
             const textoBtao = btao.innerText;
@@ -282,4 +409,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+    btoes_memoria.forEach((btao) => {
+        btao.addEventListener("click", () => {
+            const textoBtao = btao.innerText;
+            if(textoBtao === "MC"){
+                memoryClear();
+            } else if(textoBtao === "MR"){
+                memoryRecall();
+            } else if(textoBtao === "MS"){
+                memorySave();
+            } else if(textoBtao === "M+"){
+                somarMemoria();
+            } else if(textoBtao === "M-"){
+                subtrairMemoria();
+            }
+            enableButtons();
+        });
+    });
 });
+

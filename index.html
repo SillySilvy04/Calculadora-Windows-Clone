@@ -19,11 +19,11 @@
                 <h1 class="number" id="number_display">0</h1>
             </section>
             <section class="memoria">
-                <button class="memoria_componente">MC</button>
-                <button class="memoria_componente">MR</button>
-                <button class="memoria_componente">M+</button>
-                <button class="memoria_componente">M-</button>
-                <button class="memoria_componente">MS</button>
+                <button class="memoria_componente desativavel" disabled>MC</button>
+                <button class="memoria_componente desativavel" disabled>MR</button>
+                <button class="memoria_componente desativavel">M+</button>
+                <button class="memoria_componente desativavel">M-</button>
+                <button class="memoria_componente desativavel">MS</button>
             </section>
             <section class="grid">
                 <button class="btao_operacao desativavel">%</button>
@@ -63,7 +63,9 @@
                 <button class="hidden lixeira_button" id="resetar_historico"><img class="lixeira" src="assets/lixeira-de-reciclagem.png" alt="lixeira-de-reciclagem"></button>
             </div>
             <div class="memoria_painel hidden" id="memoria_painel">
-                Não há nada salvo na memória.
+                <p id="texto_padrao_memoria">Não há nada salvo na memória.</p>
+                <div id="memorias" class="memorias"></div>
+                <button class="hidden lixeira_button" id="resetar_memoria"><img class="lixeira" src="assets/lixeira-de-reciclagem.png" alt="lixeira-de-reciclagem"></button>
             </div>
         </section>
     </div>

@@ -49,6 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
         lixeira_historico.classList.add("hidden");
     });
 
+    lixeira_memoria.addEventListener("click", () => {
+        div_memoria.innerHTML = "";
+        texto_padrao_memoria.classList.remove("hidden");
+        lixeira_memoria.classList.add("hidden");
+    })
+
     document.addEventListener("eventoIgual", () => {
 
         texto_padrao_historico.classList.add("hidden");

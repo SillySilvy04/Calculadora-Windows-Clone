@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultado = document.getElementById("number_display");
     const aux_bar = document.getElementById("aux_bar");
 
-    let numeroAtual = "";
+    let numeroAtual = "0";
     let operador = null;
     let primeirOperando = null;
     let resetar = false;
@@ -113,7 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
             numeroAtual = digito;
             resetar = false;
         } else {
-            numeroAtual += digito;
+            if(numeroAtual==="0" && digito !== ","){
+                numeroAtual = digito;
+            }else{
+                numeroAtual += digito;
+            }
+            
         }
 
         atualizarResultado();
@@ -213,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function limparCalculadora(){
-        numeroAtual = "";
+        numeroAtual = "0";
         primeirOperando = "";
         operador = null;
         aux_bar.innerText = "";

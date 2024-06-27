@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         div_memoria.innerHTML = "";
         texto_padrao_memoria.classList.remove("hidden");
         lixeira_memoria.classList.add("hidden");
+        enableButtons();
     })
 
     document.addEventListener("eventoIgual", () => {
